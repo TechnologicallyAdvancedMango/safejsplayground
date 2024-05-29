@@ -8,9 +8,9 @@
     <h1>jsSimulator</h1>
     <pre>
     simulateKeypress(keyCode);
-    simulateKeys("text");
+    simulateKeys("elementId", "text");
     simulateClick(x, y);</pre>
-    <input type="text" id="console" value="console.log('Hello World!');">
+    <input type="text" id="console" value="id=console">
     <script>
       document.getElementById("console").addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
@@ -29,11 +29,19 @@
     document.dispatchEvent(keyEvent);
 }
 
-function simulateKeys(text) {
+function simulateKeys(elementId, text) {
+    var inputElement = document.getElementById(elementId);
     for (var i = 0; i < text.length; i++) {
-        simulateKeypress(text.charCodeAt(i));
+        var keyEvent = new KeyboardEvent('keypress', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true,
+            'key': text[i]
+        });
+        inputElement.dispatchEvent(keyEvent);
     }
 }
+
 function simulateClick(x, y) {
     var clickEvent = new MouseEvent('click', {
         'view': window,
