@@ -1,1 +1,1 @@
-<h1>Goal: idk</h1>
+<h1>Hack this website</h1>
