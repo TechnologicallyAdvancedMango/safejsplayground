@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>jsSimulator</title>
+    
+  </head>
+  <body>
+    <h1>jsSimulator</h1>
+    <pre>
+    simulateKeypress(keyCode);
+    simulateKeys("text");
+    simulateClick(x, y);</pre>
+    <input type="text" id="myInput" value="console.log('Hello World!');">
+    <button onclick="executeInConsole()">Execute</button>
+    <script>
+      function executeInConsole() {
+    var code = document.getElementById("myInput").value;
+    eval(code);
+}
+      function simulateKeypress(keyCode) {
+    var keyEvent = new KeyboardEvent('keypress', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true,
+        'keyCode': keyCode
+    });
+
+    document.dispatchEvent(keyEvent);
+}
+
+function simulateKeys(text) {
+    for (var i = 0; i < text.length; i++) {
+        simulateKeypress(text.charCodeAt(i));
+    }
+}
+function simulateClick(x, y) {
+    var clickEvent = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true,
+        'screenX': x,
+        'screenY': y
+    });
+
+    document.elementFromPoint(x, y).dispatchEvent(clickEvent);
+}
+
+    </script>
+  </body>
+</html>
