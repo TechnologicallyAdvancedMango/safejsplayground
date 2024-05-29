@@ -5,12 +5,8 @@
     
   </head>
   <body>
-    <h1>jsSimulator</h1>
-    <pre>
-    simulateKeypress(keyCode);
-    simulateKeys("elementId", "text");
-    simulateClick(x, y);</pre>
-    <input type="text" id="console" value="id=console">
+    <h1>Hack this website</h1>
+    <input type="text" id="console" value="eval(code)">
     <script>
       document.getElementById("console").addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
@@ -18,41 +14,6 @@
         eval(code);
     }
 });
-      function simulateKeypress(keyCode) {
-    var keyEvent = new KeyboardEvent('keypress', {
-        'view': window,
-        'bubbles': true,
-        'cancelable': true,
-        'keyCode': keyCode
-    });
-
-    document.dispatchEvent(keyEvent);
-}
-
-function simulateKeys(elementId, text) {
-    var inputElement = document.getElementById(elementId);
-    for (var i = 0; i < text.length; i++) {
-        var keyEvent = new KeyboardEvent('keypress', {
-            'view': window,
-            'bubbles': true,
-            'cancelable': true,
-            'key': text[i]
-        });
-        inputElement.dispatchEvent(keyEvent);
-    }
-}
-
-function simulateClick(x, y) {
-    var clickEvent = new MouseEvent('click', {
-        'view': window,
-        'bubbles': true,
-        'cancelable': true,
-        'screenX': x,
-        'screenY': y
-    });
-
-    document.elementFromPoint(x, y).dispatchEvent(clickEvent);
-}
 
     </script>
   </body>
