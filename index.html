@@ -1,20 +1,30 @@
-<!doctype html>
-<html>
-  <head>
-    <title>jsSimulator</title>
-    
-  </head>
-  <body>
-    <h1>Hack this website</h1>
-    <input type="text" id="console" value="eval(code)">
-    <script>
-      document.getElementById("console").addEventListener("keyup", function(event) {
-    if (event.key === 'Enter') {
-        var code = document.getElementById("console").value;
-        eval(code);
-    }
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe JavaScript Playground</title>
+</head>
+<body>
+    <h1>Safe JavaScript Playground</h1>
+    <textarea id="codeInput" placeholder="Enter JavaScript code here"></textarea>
+    <button id="runCode">Run Code</button>
+    <pre id="output"></pre>
 
+    <script>
+        const codeInput = document.getElementById('codeInput');
+        const runCodeButton = document.getElementById('runCode');
+        const output = document.getElementById('output');
+
+        runCodeButton.addEventListener('click', () => {
+            try {
+                const userCode = new Function('"use strict"; return (' + codeInput.value + ')');
+                const result = userCode();
+                output.textContent = 'Result:\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                output.textContent = 'Error:\n' + error.message;
+            }
+        });
     </script>
-  </body>
+</body>
 </html>
