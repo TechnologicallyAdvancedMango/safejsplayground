@@ -22,9 +22,9 @@
                 const safeUserCode = `
                     (() => {
                         with (this) {
-                            return ${userCode.toString()
+                            return (${userCode.toString()
                                 .replace(/eval\s*\(/g, '/* safeVersion */ (')
-                                .replace(/\);/g, '*/)')};
+                                .replace(/\);/g, '*/)')})();
                         }
                     })()
                 `;
