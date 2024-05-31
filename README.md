@@ -1,1 +1,1 @@
-<h1>Hack this website</h1>
+safe js playground
