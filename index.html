@@ -19,9 +19,15 @@
         runCodeButton.addEventListener('click', () => {
             try {
                 const userCode = new Function('"use strict"; return (' + codeInput.value + ')');
-                const safeUserCode = userCode.toString()
-                    .replace(/eval\s*\(/g, '/* safeVersion */ (')
-                    .replace(/\);/g, '*/)');
+                const safeUserCode = `
+                    (() => {
+                        with (this) {
+                            return ${userCode.toString()
+                                .replace(/eval\s*\(/g, '/* safeVersion */ (')
+                                .replace(/\);/g, '*/)')};
+                        }
+                    })()
+                `;
                 eval(safeUserCode);
             } catch (error) {
                 output.textContent = 'Error:\n' + error.message;
